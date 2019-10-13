@@ -40,14 +40,14 @@ export class CharacterRepository extends DefaultCrudRepository<
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource,
 
-    @repository.getter('ArmorRepository')
-    protected armorRepositoryGetter: Getter<ArmorRepository>,
+    @repository.getter(ArmorRepository)
+    armorRepositoryGetter: Getter<ArmorRepository>,
 
     @repository.getter('SkillRepository')
-    protected skillRepositoryGetter: Getter<SkillRepository>,
+    skillRepositoryGetter: Getter<SkillRepository>,
 
-    @repository.getter('WeaponRepository')
-    protected weaponRepositoryGetter: Getter<WeaponRepository>,
+    @repository.getter(WeaponRepository)
+    weaponRepositoryGetter: Getter<WeaponRepository>,
   ) {
     super(Character, dataSource);
 
@@ -55,6 +55,7 @@ export class CharacterRepository extends DefaultCrudRepository<
     this.skill = this.createHasOneRepositoryFactoryFor('skill', skillRepositoryGetter);
     this.weapon = this.createHasOneRepositoryFactoryFor('weapon', weaponRepositoryGetter);
 
+    // register inclusion resolvers
     this.registerInclusionResolver('armor', this.armor.inclusionResolver);
     this.registerInclusionResolver('skill', this.skill.inclusionResolver);
     this.registerInclusionResolver('weapon', this.weapon.inclusionResolver);

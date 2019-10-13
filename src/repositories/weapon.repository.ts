@@ -25,7 +25,7 @@ export class WeaponRepository extends DefaultCrudRepository<
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource,
     @repository.getter('CharacterRepository')
-    protected characterRepositoryGetter: Getter<CharacterRepository>,
+    characterRepositoryGetter: Getter<CharacterRepository>,
   ) {
     super(Weapon, dataSource);
 

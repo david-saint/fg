@@ -25,7 +25,7 @@ export class SkillRepository extends DefaultCrudRepository<
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource,
     @repository.getter('CharacterRepository')
-    protected characterRepositoryGetter: Getter<CharacterRepository>,
+    characterRepositoryGetter: Getter<CharacterRepository>,
   ) {
     super(Skill, dataSource);
 
