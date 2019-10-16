@@ -4,7 +4,7 @@ import {
   property,
   belongsTo,
 } from '@loopback/repository';
-import {Character, CharacterWithRelations} from './character.model';
+import {Character} from './character.model';
 
 @model()
 export class Armor extends Entity {
@@ -33,12 +33,8 @@ export class Armor extends Entity {
   })
   defence: number;
 
-
-  // Relationships
-
   @belongsTo(() => Character)
   characterId: string;
-
 
   constructor(data?: Partial<Armor>) {
     super(data);
@@ -47,7 +43,6 @@ export class Armor extends Entity {
 
 export interface ArmorRelations {
   // describe navigational properties here
-  character?: CharacterWithRelations;
 }
 
 export type ArmorWithRelations = Armor & ArmorRelations;

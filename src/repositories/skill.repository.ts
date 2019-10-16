@@ -17,24 +17,14 @@ export class SkillRepository extends DefaultCrudRepository<
   typeof Skill.prototype.id,
   SkillRelations
 > {
-  public readonly character: BelongsToAccessor<
-    Character,
-    typeof Skill.prototype.id
-  >
+
+  public readonly character: BelongsToAccessor<Character, typeof Skill.prototype.id>;
 
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource,
-    @repository.getter('CharacterRepository')
-    characterRepositoryGetter: Getter<CharacterRepository>,
+    @repository.getter('CharacterRepository') protected characterRepositoryGetter: Getter<CharacterRepository>,
   ) {
     super(Skill, dataSource);
-
-    this.character = this.createBelongsToAccessorFor(
-      'character',
-      characterRepositoryGetter
-    );
-
-    // Register inclusion Resolver
-    this.registerInclusionResolver('character', this.character.inclusionResolver);
+    this.character = this.createBelongsToAccessorFor('character', characterRepositoryGetter,);
   }
 }

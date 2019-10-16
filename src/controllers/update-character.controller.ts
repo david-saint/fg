@@ -252,21 +252,12 @@ export class UpdateCharacterController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.query.object('filter', getFilterSchemaFor(Armor && Weapon && Skill)) filter?: Filter<Armor & Skill & Weapon>,
   ): Promise<any[]> {
     const res: any[] = ['no weapons', 'no armors', 'no skills'];
 
-    if ((await this.weaponRepository.find(filter))[0] != undefined) {
-      res[0] = await this.characterRepository.weapon(id).get();
-    }
-
-    if ((await this.armorRepository.find(filter))[0] != undefined) {
-      res[1] = await this.characterRepository.armor(id).get();
-    }
-
-    if ((await this.skillRepository.find(filter))[0] != undefined) {
-      res[2] = await this.characterRepository.skill(id).get();
-    }
+    res[0] = await this.characterRepository.weapon(id).get();
+    res[1] = await this.characterRepository.armor(id).get();
+    res[2] = await this.characterRepository.skill(id).get();
 
     return res;
   }

@@ -1,7 +1,7 @@
 import {
   Weapon,
   Character,
-  WeaponRelations
+  WeaponRelations,
 } from '../models';
 import {
   repository,
@@ -17,24 +17,14 @@ export class WeaponRepository extends DefaultCrudRepository<
   typeof Weapon.prototype.id,
   WeaponRelations
 > {
-  public readonly character: BelongsToAccessor<
-    Character,
-    typeof Weapon.prototype.id
-  >
+
+  public readonly character: BelongsToAccessor<Character, typeof Weapon.prototype.id>;
 
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource,
-    @repository.getter('CharacterRepository')
-    characterRepositoryGetter: Getter<CharacterRepository>,
+    @repository.getter('CharacterRepository') protected characterRepositoryGetter: Getter<CharacterRepository>,
   ) {
     super(Weapon, dataSource);
-
-    this.character = this.createBelongsToAccessorFor(
-      'character',
-      characterRepositoryGetter
-    );
-
-    // Register inclusion resolvers.
-    this.registerInclusionResolver('character', this.character.inclusionResolver);
+    this.character = this.createBelongsToAccessorFor('character', characterRepositoryGetter,);
   }
 }

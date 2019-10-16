@@ -4,7 +4,7 @@ import {
   property,
   belongsTo,
 } from '@loopback/repository';
-import {Character, CharacterWithRelations} from './character.model';
+import {Character} from './character.model';
 
 @model()
 export class Weapon extends Entity {
@@ -47,7 +47,6 @@ export class Weapon extends Entity {
 
 export interface WeaponRelations {
   // describe navigational properties here
-  character?: CharacterWithRelations;
 }
 
 export type WeaponWithRelations = Weapon & WeaponRelations;

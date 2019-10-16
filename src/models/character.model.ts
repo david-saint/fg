@@ -86,13 +86,13 @@ export class Character extends Entity {
   // Relationships
 
   @hasOne(() => Armor)
-  armor?: Armor;
+  armor: Armor;
 
   @hasOne(() => Skill)
-  skill?: Skill;
+  skill: Skill;
 
   @hasOne(() => Weapon)
-  weapon?: Weapon;
+  weapon: Weapon;
 
 
   constructor(data?: Partial<Character>) {
@@ -102,9 +102,6 @@ export class Character extends Entity {
 
 export interface CharacterRelations {
   // describe navigational properties here
-  armor?: ArmorWithRelations;
-  skill?: SkillWithRelations;
-  weapon?: WeaponWithRelations;
 }
 
 export type CharacterWithRelations = Character & CharacterRelations;

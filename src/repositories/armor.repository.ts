@@ -17,24 +17,14 @@ export class ArmorRepository extends DefaultCrudRepository<
   typeof Armor.prototype.id,
   ArmorRelations
 > {
-  public readonly character: BelongsToAccessor<
-    Character,
-    typeof Armor.prototype.id
-  >;
+
+  public readonly character: BelongsToAccessor<Character, typeof Armor.prototype.id>;
 
   constructor(
     @inject('datasources.mongo') dataSource: MongoDataSource,
-    @repository.getter('CharacterRepository')
-    characterRepositoryGetter: Getter<CharacterRepository>,
+    @repository.getter('CharacterRepository') protected characterRepositoryGetter: Getter<CharacterRepository>,
   ) {
     super(Armor, dataSource);
-
-    this.character = this.createBelongsToAccessorFor(
-      'character',
-      characterRepositoryGetter
-    );
-
-    // Register inclusion Resolver
-    this.registerInclusionResolver('character', this.character.inclusionResolver);
+    this.character = this.createBelongsToAccessorFor('character', characterRepositoryGetter,);
   }
 }
